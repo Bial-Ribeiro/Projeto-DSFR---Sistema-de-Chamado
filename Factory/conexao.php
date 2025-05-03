@@ -8,10 +8,7 @@
             try {
                 if(self::$connect == null){
                    self::$connect = new PDO 
-                   ('mysql:host=localhost;
-                     dbname=<GaMa_pecas>;',
-                    self::$usuario,self::$senha 
-                   );                  
+                   ('mysql:host=localhost;dbname=GaMa_pecas;',self::$usuario,self::$senha);                  
                 }
             } catch (Exception $ex) {
                 echo 'Mensagem: ' . $ex->
