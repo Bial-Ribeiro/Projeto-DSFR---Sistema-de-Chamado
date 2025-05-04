@@ -21,7 +21,7 @@
        bindParam(':codClienteChamado',$_GET['cxCodCliente'],PDO::PARAM_INT);
        
        $cadastrar->
-       bindParam(':emailClienteChamado',$_POST['cxEmailCliente'],PDO::PARAM_INT);
+       bindParam(':emailClienteChamado',$_POST['cxEmailCliente'],PDO::PARAM_STR);
        $cadastrar->execute();
        
        if($cadastrar->rowcount()){

@@ -10,7 +10,7 @@
 </head>
 <body>
 <div>
-    Você é um cliente ou técnico?
+    Escolha seu usuário
     <a href="view/telaCliente.php?cxCodCliente=1">Cliente</a>
     <a href="view/telaTecnico.php">Técnico</a>
 </div>
