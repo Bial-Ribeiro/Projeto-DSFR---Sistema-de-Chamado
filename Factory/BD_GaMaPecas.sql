@@ -44,3 +44,4 @@ values ("dummy2", "1231231231");
 
 select * from tbCliente;
 select * from tbChamado;
+
