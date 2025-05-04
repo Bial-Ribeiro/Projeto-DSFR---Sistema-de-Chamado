@@ -23,9 +23,10 @@
     </div>
     <div>   <!-- div para a parte de pesquisa dos chamados-->
         <h2>Meus Chamados</h2>
-        <form action="telaCLiente.php" method="GET">
+        <form action="telaCLiente.php?cxCodCliente=1" method="GET">
         <h3>Buscar chamado</h3>
             Código do chamado:
+            <input type="hidden", name="cxCodCliente" value=1>
             <input type="number" name="cxCodChamado" placeholder="0">
             <input type="submit" value="Buscar">
             <input type="reset" value="Limpar busca" onclick="window.location.href = 'telaCliente.php?cxCodCliente=1&cxCodChamado=-1';">
@@ -54,7 +55,8 @@
                                 break;
                         }
                     ?><!-- CAMPO STATUS DO CHAMADO --></nav>
-                <nav>Última atualização: <?=$chamado["dataUltimaRespostaChamado"]?><!-- CAMPO ÚLTIMA RESPOSTA DO CHAMADO --></nav>
+                <nav>Última atualização: <?=$chamado["dataUltimaRespostaChamado"]?><!-- CAMPO DATA DA ÚLTIMA RESPOSTA DO CHAMADO --></nav>
+                <a href="../model/deletaChamado.php?cxCodChamado=<?=$chamado["codChamado"]?>&cxCodCliente=<?=$_GET["cxCodCliente"]?>">Excluir chamado</a>
             </div>
             <br>
         <?php endforeach ;?>
