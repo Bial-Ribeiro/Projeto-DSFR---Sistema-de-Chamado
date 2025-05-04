@@ -22,13 +22,22 @@
        
        $cadastrar->
        bindParam(':emailClienteChamado',$_POST['cxEmailCliente'],PDO::PARAM_STR);
-       $cadastrar->execute();
-       
-       if($cadastrar->rowcount()){
-           echo "Chamado feito com sucesso!";
-       }else{
-           echo "Chamado não realizado";
-       }
+       $codCliente = $_GET['cxCodCliente'];
+       if($cadastrar->execute()){
+        echo "
+        <script>
+            alert('Chamado criado com sucesso');
+            window.location.href='../view/telaCliente.php?cxCodCliente=$codCliente&cxCodChamado=-1';
+        </script>
+        ";
+    }else{
+         echo "
+             <script>
+             alert('Chamado não criado');
+             window.location.href='../view/telaCliente.php?cxCodCliente=$codCliente&cxCodChamado=-1';
+             </script>
+         ";
+        }
     }else{
         echo "Dados incompleto";
     }
