@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fazer um chamado</title>
+    <?php 
+        require_once "../model/buscaChamado.php";
+    ?>
 </head>
 <body>
     <div>
@@ -20,6 +23,18 @@
     </div>
     <div>
         <h2>Meus Chamados</h2>
+        <?php foreach($linha as $indice => $chamado):?>
+            <?php foreach($chamado as $campo => $valor):?>
+                <?php 
+                    echo "campo". $campo. " = ".$valor."<br>";
+                    ?>
+
+            
+            <?php endforeach;?>
+            <br>
+        <?php endforeach ;?>
+
+
     </div>
 </body>
 </html>
