@@ -4,9 +4,9 @@
     if(($_POST['cxDescrChamado'] != "") && ($_POST['cxTituloChamado'] != "")){
        $conn = new Caminho;
        $query = "INSERT INTO tbChamado
-       (titleChamado,   descrChamado,   statusChamado,  codClienteChamado,  emailClienteChamado,    dataCriacaoChamado)
+       (titleChamado,   descrChamado,   statusChamado,  codUsuarioChamado,  emailUsuarioChamado,    dataCriacaoChamado)
        VALUES
-       (:titleChamado,  :descrChamado,              1,  :codClienteChamado, :emailClienteChamado,   CURRENT_TIMESTAMP)"; 
+       (:titleChamado,  :descrChamado,              1,  :codUsuarioChamado, :emailUsuarioChamado,   CURRENT_TIMESTAMP)"; 
 
        $cadastrar=$conn->getConn()->
        prepare($query);
@@ -18,23 +18,24 @@
        bindParam(':descrChamado',$_POST['cxDescrChamado'],PDO::PARAM_STR);
        
        $cadastrar->
-       bindParam(':codClienteChamado',$_GET['cxCodCliente'],PDO::PARAM_INT);
+       bindParam(':codUsuarioChamado',$_POST['cxCodUsuario'],PDO::PARAM_INT);
        
        $cadastrar->
-       bindParam(':emailClienteChamado',$_POST['cxEmailCliente'],PDO::PARAM_STR);
-       $codCliente = $_GET['cxCodCliente'];
+       bindParam(':emailUsuarioChamado',$_POST['cxEmailUsuario'],PDO::PARAM_STR);
+       $codUsuario = $_POST['cxCodUsuario'];
+       $nivel = $_POST['nivelAcesso'];
        if($cadastrar->execute()){
         echo "
         <script>
             alert('Chamado criado com sucesso');
-            window.location.href='../view/telaCliente.php?cxCodCliente=$codCliente&cxCodChamado=-1';
+            window.location.href='../view/telaCliente.php?cxCodUsuario=$codUsuario&cxCodChamado=-1&nivelAcesso=$nivel';
         </script>
         ";
     }else{
          echo "
              <script>
              alert('Chamado não criado');
-             window.location.href='../view/telaCliente.php?cxCodCliente=$codCliente&cxCodChamado=-1';
+             window.location.href='../view/telaCliente.php?cxCodUsuario=$codUsuario&cxCodChamado=-1&nivelAcesso=$nivel';
              </script>
          ";
         }

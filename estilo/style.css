@@ -94,8 +94,13 @@ p, nav {
 }
 
 /* Link de exclusão */
-a {
+a.excluir {
     color: #e74c3c;
+    text-decoration: none;
+    font-weight: bold;
+}
+.responder {
+    color: #3c5be7;
     text-decoration: none;
     font-weight: bold;
 }

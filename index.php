@@ -11,8 +11,8 @@
 <body>
 <div>
     Escolha seu usuário
-    <a href="view/telaCliente.php?cxCodCliente=1&cxCodChamado=-1">Cliente</a>
-    <a href="view/telaTecnico.php">Técnico</a>
+    <a href="view/telaCliente.php?cxCodUsuario=1&cxCodChamado=-1&nivelAcesso=1">Cliente</a>
+    <a href="view/telaTecnico.php?cxCodUsuario=3&cxCodChamado=-1&nivelAcesso=2">Técnico</a>
 </div>
 </body>
 </html>

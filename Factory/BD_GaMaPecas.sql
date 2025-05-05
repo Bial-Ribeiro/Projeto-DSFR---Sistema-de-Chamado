@@ -1,17 +1,12 @@
 create database GaMa_pecas;
 use GaMa_pecas;
 
-create table tbCliente(
-codCliente int primary key auto_increment,
-nomeCliente varchar(50),
-emailCliente varchar(50),
-cpfCliente char(11)
-);
-
-create table tbTecnico(
-codTecnico int primary key auto_increment,
-nomeTecnico varchar(50),
-cpfTecnico int
+create table tbUsuario(
+codUsuario int primary key auto_increment,
+nomeUsuario varchar(50),
+emailUsuario varchar(50),
+cpfUsuario char(11),
+nivelAcesso int
 );
 
 create table tbChamado(
@@ -19,12 +14,12 @@ codChamado int primary key auto_increment,
 titleChamado varchar(50),
 descrChamado varchar(200),
 statusChamado int,
-codClienteChamado int,
-emailClienteChamado varchar(50),
+codUsuarioChamado int,
+emailUsuarioChamado varchar(50),
 dataCriacaoChamado datetime,
 dataUltimaRespostaChamado datetime,
-foreign key (codClienteChamado)
-references tbCliente(codCLiente)
+foreign key (codUsuarioChamado)
+references tbUsuario(codUsuario)
 );
 -- statusChamado 1 para pendente, 2 para respondido, 3 para finalizado
 
@@ -36,12 +31,20 @@ codRespondeu int,
 foreign key (codChamadoRespondido)
 references tbChamado(codChamado),
 foreign key (codRespondeu)
-references tbTecnico(codTecnico)
+references tbUsuario(codUsuario)
 );
 
-insert into tbCliente(nomeCliente, cpfCliente)
-values ("dummy2", "1231231231");
+insert into tbUsuario(nomeUsuario, cpfUsuario, nivelAcesso)
+values ("dummy1", "1231231231", 1);
 
-select * from tbCliente;
+insert into tbUsuario(nomeUsuario, cpfUsuario, nivelAcesso)
+values ("dummy2", "1231231231", 1);
+
+insert into tbUsuario(nomeUsuario, cpfUsuario, nivelAcesso)
+values ("dummyTec1", "1231231231", 2);
+
+select * from tbUsuario;
 select * from tbChamado;
+
+-- delete from tbUsuario where codUsuario > 0
 

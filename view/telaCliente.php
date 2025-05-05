@@ -7,14 +7,17 @@
     <link rel="stylesheet" href="../estilo/style.css">
     <?php 
         require_once "../model/buscaChamado.php";
+        require_once "../model/buscaResposta.php";
     ?>
 </head>
 <body>
     <div>   <!-- div para a parte de abertura de chamado-->
-        <form action="../model/criaChamado.php?cxCodCliente=1" method="POST">
+        <form action="../model/criaChamado.php" method="POST">
+            <input type="hidden", name="nivelAcesso" value=1>
+            <input type="hidden", name="cxCodUsuario" value=1>
             <h2>Criar chamado</h2>
             E-mail para resposta:
-            <input type="text" name="cxEmailCliente" maxlength=50>
+            <input type="text" name="cxEmailUsuario" maxlength=50>
             Assunto:
             <input type="text" name="cxTituloChamado" maxlength=50>
             Descreva seu problema:
@@ -24,13 +27,14 @@
     </div>
     <div>   <!-- div para a parte de pesquisa dos chamados-->
         <h2>Meus Chamados</h2>
-        <form action="telaCLiente.php?cxCodCliente=1" method="GET">
+        <form action="telaCliente.php" method="GET">
         <h3>Buscar chamado</h3>
             Código do chamado:
-            <input type="hidden", name="cxCodCliente" value=1>
+            <input type="hidden", name="cxCodUsuario" value=1>
+            <input type="hidden", name="nivelAcesso" value=1>
             <input type="number" name="cxCodChamado" placeholder="0">
             <input type="submit" value="Buscar">
-            <input type="reset" value="Limpar busca" onclick="window.location.href = 'telaCliente.php?cxCodCliente=1&cxCodChamado=-1';">
+            <input type="reset" value="Limpar busca" onclick="window.location.href = 'telaCliente.php?cxCodUsuario=1&cxCodChamado=-1&nivelAcesso=1';">
         </form>
         <br>
         <br>
@@ -57,7 +61,7 @@
                         }
                     ?><!-- CAMPO STATUS DO CHAMADO --></nav>
                 <nav>Última atualização: <?=$chamado["dataUltimaRespostaChamado"]?><!-- CAMPO DATA DA ÚLTIMA RESPOSTA DO CHAMADO --></nav>
-                <a href="../model/deletaChamado.php?cxCodChamado=<?=$chamado["codChamado"]?>&cxCodCliente=<?=$_GET["cxCodCliente"]?>">Excluir chamado</a>
+                <a class="excluir" href="../model/deletaChamado.php?cxCodChamado=<?=$chamado["codChamado"]?>&cxCodUsuario=<?=$_GET["cxCodUsuario"]?>&nivelAcesso=<?=$_GET["nivelAcesso"]?>">Excluir chamado</a>
             </div>
             <br>
         <?php endforeach ;?>
