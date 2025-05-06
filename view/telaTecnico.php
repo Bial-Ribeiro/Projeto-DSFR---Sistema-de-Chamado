@@ -6,6 +6,9 @@
     <title>Chamados</title>
     <link rel="stylesheet" href="../estilo/style.css">
     <?php 
+        session_start();
+        $_SESSION['cxCodUsuario'] = 3;
+        $_SESSION['nivelAcesso'] = 2;
         require_once "../model/buscaChamado.php";
     ?>
 </head>
@@ -26,11 +29,20 @@
         <br>
         
         <?php foreach($linha as $indice => $chamado):?>
+            <?php 
+                $procuraUser = $chamado['codUsuarioChamado'];
+                include '../model/buscaUsuario.php';?>
             <div> <!-- div para cada chamado-->
                 <!-- aqui dentro vai a estrutura de um chamadp-->
-                <h4><?= $chamado["titleChamado"]?> <!-- CAMPO TÍTULO/ASSUNTO DO CHAMADO --> - código: <?=$chamado["codChamado"]?> <!-- CAMPO CÓDIGO DO CHAMADO --></h4>
+                <h4>"<?= $chamado["titleChamado"]?>" <!-- CAMPO TÍTULO/ASSUNTO DO CHAMADO --> por <?=$linhaUsuario['nomeUsuario']?>- código: <?=$chamado["codChamado"]?> <!-- CAMPO CÓDIGO DO CHAMADO --></h4>
                 <p>Criado em: <?= $chamado["dataCriacaoChamado"]?><!-- CAMPO DATA DE ABERTURA DO CHAMADO --></p>
                 <p><?= $chamado["descrChamado"]?><!-- CAMPO TEXTO/DESCRIÇÃO DO CHAMADO --></p>
+                Responder para: <?php 
+                if($chamado['emailUsuarioChamado'] != ""){
+                    echo $chamado["emailUsuarioChamado"];
+                }else{
+                    echo $linhaUsuario['emailUsuario'];
+                } ?>
                 <nav>
                     <?php 
                         switch($chamado["statusChamado"]){
@@ -46,8 +58,27 @@
                         }
                     ?><!-- CAMPO STATUS DO CHAMADO --></nav>
                 <nav>Última atualização: <?=$chamado["dataUltimaRespostaChamado"]?><!-- CAMPO DATA DA ÚLTIMA RESPOSTA DO CHAMADO --></nav>
-                <a class="excluir" href="../model/deletaChamado.php?cxCodChamado=<?=$chamado["codChamado"]?>&cxCodUsuario=<?=$_GET["cxCodUsuario"]?>">Encerrar chamado</a>
-                <a class="responder">Ver / Responder chamado</a>
+                <a class="excluir" href="../model/deletaChamado.php?cxCodChamado=<?=$chamado["codChamado"]?>">Encerrar chamado</a>
+                <?php 
+                include "../model/buscaResposta.php";
+                foreach($linhaRespostas as $indice => $resposta):
+                    $procuraUser = $resposta["codRespondeu"];
+                    include "../model/buscaUsuario.php";
+                ?>
+                    <div class="respostas-dropdown" id="chamado-<?=$chamado['codChamado']?>">
+                    <?= $linhaUsuario['nomeUsuario']?> respondeu: 
+                        <p><?= $resposta['descrRespChamado'] ?></p>
+                    </div>
+                <?php endforeach;?>
+                    <div>
+                        <form method="POST" action="../model/respChamado.php">
+                            <input type="hidden" name="cxCodChamadoRespondido" value=<?=$chamado['codChamado']?>>
+                            <input type="hidden" name="cxCodRespondeu" value=<?=$_SESSION['cxCodUsuario']?>>
+                            Responder:
+                            <input type="text" name="cxDescrRespoChamado">
+                            <input type="submit" value="enviar">
+                        </form>
+                    </div>
             </div>
             <br>
         <?php endforeach ;?>

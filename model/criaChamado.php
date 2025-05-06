@@ -8,34 +8,26 @@
        VALUES
        (:titleChamado,  :descrChamado,              1,  :codUsuarioChamado, :emailUsuarioChamado,   CURRENT_TIMESTAMP)"; 
 
-       $cadastrar=$conn->getConn()->
+       $criaChamado=$conn->getConn()->
        prepare($query);
        
-       $cadastrar->
-       bindParam(':titleChamado',$_POST['cxTituloChamado'],PDO::PARAM_STR);
+       $criaChamado->bindParam(':titleChamado',$_POST['cxTituloChamado'],PDO::PARAM_STR);
+       $criaChamado->bindParam(':descrChamado',$_POST['cxDescrChamado'],PDO::PARAM_STR);
+       $criaChamado->bindParam(':codUsuarioChamado',$_POST['cxCodUsuario'],PDO::PARAM_INT);
+       $criaChamado->bindParam(':emailUsuarioChamado',$_POST['cxEmailUsuario'],PDO::PARAM_STR);
 
-       $cadastrar->
-       bindParam(':descrChamado',$_POST['cxDescrChamado'],PDO::PARAM_STR);
-       
-       $cadastrar->
-       bindParam(':codUsuarioChamado',$_POST['cxCodUsuario'],PDO::PARAM_INT);
-       
-       $cadastrar->
-       bindParam(':emailUsuarioChamado',$_POST['cxEmailUsuario'],PDO::PARAM_STR);
-       $codUsuario = $_POST['cxCodUsuario'];
-       $nivel = $_POST['nivelAcesso'];
-       if($cadastrar->execute()){
+       if($criaChamado->execute()){
         echo "
         <script>
             alert('Chamado criado com sucesso');
-            window.location.href='../view/telaCliente.php?cxCodUsuario=$codUsuario&cxCodChamado=-1&nivelAcesso=$nivel';
+            window.location.href='../view/telaCliente.php?cxCodChamado=-1';
         </script>
         ";
     }else{
          echo "
              <script>
              alert('Chamado não criado');
-             window.location.href='../view/telaCliente.php?cxCodUsuario=$codUsuario&cxCodChamado=-1&nivelAcesso=$nivel';
+             window.location.href='../view/telaCliente.php?cxCodChamado=-1';
              </script>
          ";
         }

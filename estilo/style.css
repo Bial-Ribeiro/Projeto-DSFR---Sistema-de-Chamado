@@ -93,7 +93,12 @@ p, nav {
     margin-bottom: 6px;
 }
 
-/* Link de exclusão */
+a.users {
+    color: #32d34d;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 a.excluir {
     color: #e74c3c;
     text-decoration: none;
@@ -108,3 +113,4 @@ a.excluir {
 a:hover {
     text-decoration: underline;
 }
+

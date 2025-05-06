@@ -6,13 +6,18 @@
     <title>GaMa Peças</title>
     <?php
     require_once "factory/conexao.php";
+    session_abort()
     ?>
+    <link rel="stylesheet" href="estilo/style.css">
 </head>
 <body>
 <div>
     Escolha seu usuário
-    <a href="view/telaCliente.php?cxCodUsuario=1&cxCodChamado=-1&nivelAcesso=1">Cliente</a>
-    <a href="view/telaTecnico.php?cxCodUsuario=3&cxCodChamado=-1&nivelAcesso=2">Técnico</a>
+    <ul>
+    <a class="users" href="view/telaCliente.php?cxCodChamado=-1">Cliente</a>
+    <a class="users" href="view/telaTecnico.php?cxCodChamado=-1">Técnico</a>
+    </ul>
+
 </div>
 </body>
 </html>

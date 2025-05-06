@@ -6,8 +6,13 @@
     <title>Fazer um chamado</title>
     <link rel="stylesheet" href="../estilo/style.css">
     <?php 
+        session_start();
+        $_SESSION['cxCodUsuario'] = 1;
+        $_SESSION['nivelAcesso'] = 1;
+
         require_once "../model/buscaChamado.php";
         require_once "../model/buscaResposta.php";
+        
     ?>
 </head>
 <body>
@@ -19,9 +24,9 @@
             E-mail para resposta:
             <input type="text" name="cxEmailUsuario" maxlength=50>
             Assunto:
-            <input type="text" name="cxTituloChamado" maxlength=50>
+            <input type="text" name="cxTituloChamado" maxlength=50 required>
             Descreva seu problema:
-            <input type="text" name="cxDescrChamado" maxlength=200>
+            <input type="text" name="cxDescrChamado" maxlength=200 required>
             <input type="submit" value="Abrir chamado">
         </form>
     </div>
@@ -34,7 +39,7 @@
             <input type="hidden", name="nivelAcesso" value=1>
             <input type="number" name="cxCodChamado" placeholder="0">
             <input type="submit" value="Buscar">
-            <input type="reset" value="Limpar busca" onclick="window.location.href = 'telaCliente.php?cxCodUsuario=1&cxCodChamado=-1&nivelAcesso=1';">
+            <input type="reset" value="Limpar busca" onclick="window.location.href = 'telaCliente.php?cxCodChamado=-1';">
         </form>
         <br>
         <br>
@@ -61,7 +66,26 @@
                         }
                     ?><!-- CAMPO STATUS DO CHAMADO --></nav>
                 <nav>Última atualização: <?=$chamado["dataUltimaRespostaChamado"]?><!-- CAMPO DATA DA ÚLTIMA RESPOSTA DO CHAMADO --></nav>
-                <a class="excluir" href="../model/deletaChamado.php?cxCodChamado=<?=$chamado["codChamado"]?>&cxCodUsuario=<?=$_GET["cxCodUsuario"]?>&nivelAcesso=<?=$_GET["nivelAcesso"]?>">Excluir chamado</a>
+                <?php 
+                include "../model/buscaResposta.php";
+                foreach($linhaRespostas as $indice => $resposta):
+                    $procuraUser = $resposta["codRespondeu"];
+                    include "../model/buscaUsuario.php";
+                ?>
+                    <div class="respostas-dropdown" id="chamado-<?=$chamado['codChamado']?>">
+                        <?= $linhaUsuario['nomeUsuario']?> respondeu:
+                        <p><?= $resposta['descrRespChamado'] ?></p>
+                    </div>
+                <?php endforeach;?>
+                <div>
+                        <form method="POST" action="../model/respChamado.php">
+                            <input type="hidden" name="cxCodChamadoRespondido" value=<?=$chamado['codChamado']?>>
+                            <input type="hidden" name="cxCodRespondeu" value=<?=$_SESSION['cxCodUsuario']?>>
+                            Responder:
+                            <input type="text" name="cxDescrRespoChamado">
+                            <input type="submit" value="enviar">
+                        </form>
+                    </div>
             </div>
             <br>
         <?php endforeach ;?>

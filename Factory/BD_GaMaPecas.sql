@@ -34,17 +34,31 @@ foreign key (codRespondeu)
 references tbUsuario(codUsuario)
 );
 
-insert into tbUsuario(nomeUsuario, cpfUsuario, nivelAcesso)
-values ("dummy1", "1231231231", 1);
+insert into tbUsuario(nomeUsuario, cpfUsuario, emailUsuario, nivelAcesso)
+values 
+("dummy1", "1231231231","emaildummy1@gmail.com", 1),
+("dummy2", "1231231231","emaildummy2@gmail.com", 1),
+("dummyTec1", "1231231231","emaildummy3@gmail.com", 2);
 
-insert into tbUsuario(nomeUsuario, cpfUsuario, nivelAcesso)
-values ("dummy2", "1231231231", 1);
+insert into tbChamado(titleChamado, descrChamado, statusChamado, codUsuarioChamado, dataCriacaoChamado)
+values
+("chamado teste 1", "ipsum algo one", 2, 2,CURRENT_TIMESTAMP),
+("chamado teste 2", "ipsum algo two", 2, 1,CURRENT_TIMESTAMP),
+("chamado teste 3", "ipsum algo three", 1, 1,CURRENT_TIMESTAMP),
+("chamado teste 4", "ipsum algo four", 1, 1,CURRENT_TIMESTAMP);
 
-insert into tbUsuario(nomeUsuario, cpfUsuario, nivelAcesso)
-values ("dummyTec1", "1231231231", 2);
+# UPDATE tbChamado SET dataUltimaRespostaChamado = CURRENT_TIMESTAMP, statusChamado = 2 WHERE codChamado = codChamadoRespondido;
+
+insert into tbResposta(dataCriacaoRespChamado, descrRespChamado, codChamadoRespondido, codRespondeu)
+values
+(CURRENT_TIMESTAMP, "ipsum alguma coisa teste 1", 1, 1),
+(CURRENT_TIMESTAMP, "ipsum alguma coisa teste 2", 1, 1),
+(CURRENT_TIMESTAMP, "ipsum alguma coisa teste 3", 2, 2),
+(CURRENT_TIMESTAMP, "ipsum alguma coisa teste 4", 1, 2);
+
 
 select * from tbUsuario;
 select * from tbChamado;
 
--- delete from tbUsuario where codUsuario > 0
+-- delete from tbResposta where codChamadoRespondido > 0
 
