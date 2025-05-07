@@ -16,11 +16,12 @@
     ?>
 </head>
 <body>
+    
     <div>   <!-- div para a parte de abertura de chamado-->
+    <h2>Criar chamado</h2>
         <form action="../model/criaChamado.php" method="POST">
             <input type="hidden", name="nivelAcesso" value=1>
             <input type="hidden", name="cxCodUsuario" value=1>
-            <h2>Criar chamado</h2>
             E-mail para resposta:
             <input type="text" name="cxEmailUsuario" maxlength=50>
             Assunto:
